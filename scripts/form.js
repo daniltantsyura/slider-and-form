@@ -25,7 +25,7 @@ inputs.forEach((input) => {
         input,
         input.getAttribute("data-maxlength"),
         input.getAttribute("data-minlength"),
-      ),
+      )
     );
   }
 
