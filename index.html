@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/globals.css" />
+    <link rel="stylesheet" href="./styles/animations.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <title>Slider and form</title>
+  </head>
+  <body class="page">
+    <header class="header">
+      <nav class="header__menu">
+        <ul class="header__menu_list">
+          <li class="header__menu_item">
+            <a href="#slider" class="header__menu_link">Слайдер</a>
+          </li>
+          <li class="header__menu_item">
+            <a href="#data-collection" class="header__menu_link">Форма</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main-container">
+      <section class="slider-section section">
+        <div class="slider" id="slider">
+          <button class="slider_button slider_button-prev">
+            <svg class="arrow-left-1" viewbox="0 0 60 100">
+              <path d="M 50,0 L 60,10 L 20,50 L 60,90 L 50,100 L 0,50 Z" />
+            </svg>
+          </button>
+          <div class="card-container"></div>
+          <button class="slider_button slider_button-next">
+            <svg class="arrow-right-1" viewbox="0 0 60 100">
+              <path d="M 50,0 L 60,10 L 20,50 L 60,90 L 50,100 L 0,50 Z" />
+            </svg>
+          </button>
+        </div>
+        <div class="slider__pagination">
+          <form action="#">
+            <label>
+              <input
+                class="pagination__button visually-hidden"
+                type="radio"
+                name="slider"
+              />
+              <span></span>
+            </label>
+            <label>
+              <input
+                class="pagination__button visually-hidden"
+                type="radio"
+                name="slider"
+              />
+              <span></span>
+            </label>
+            <label>
+              <input
+                class="pagination__button visually-hidden"
+                type="radio"
+                name="slider"
+              />
+              <span></span>
+            </label>
+          </form>
+        </div>
+        <div class="slider__controller">
+          <form action="#">
+            <input
+              class="controller__range"
+              value="10"
+              type="range"
+              min="2"
+              max="60"
+            />
+            <div class="controller__range-value">10s</div>
+            <button class="button controller__button" type="button">
+              Применить
+            </button>
+          </form>
+        </div>
+      </section>
+      <section class="form-section section">
+        <form action="#" class="data-colection" id="data-collection">
+          <fieldset class="data-colection__fieldset">
+            <legend class="data-collection__legend">Форма сбора данных</legend>
+            <p class="form__diviver">
+              <label class="form__label" for="organization-name-suggest"
+                >Наименование учреждения (организации):</label
+              >
+              <select
+                class="form__suggest"
+                name="organization"
+                id="organization-name-suggest"
+                required
+              >
+                <option value="">-- Выберите организацию --</option>
+                <option value="УФНС">УФНС</option>
+                <option value="УФССП">УФССП</option>
+                <option value="МБОУ СОШ">МБОУ СОШ</option>
+                <option value="УФСИН">УФСИН</option>
+                <option value="ГБУЗ НИИ ККБ">ГБУЗ НИИ ККБ</option>
+              </select>
+            </p>
+            <p class="form__diviver">
+              <label class="form__label" for="product-name"
+                >Наименование товара:</label
+              >
+              <input
+                class="form__input product-name-input"
+                type="text"
+                name="product-name"
+                id="product-name"
+                placeholder="Наименование товара, закупленного учреждением"
+                required
+              />
+            </p>
+            <p class="form__diviver">
+              <label class="form__label" for="supplier"
+                >Наименование контрагента (поставщика):</label
+              >
+              <input
+                class="form__input text-input"
+                type="text"
+                name="supplier"
+                id="supplier"
+                placeholder="Наименование поставщика товара"
+                required
+              />
+            </p>
+            <p class="form__diviver">
+              <label class="form__label" for="inn">ИНН контрагента:</label>
+              <!-- средствами html невозможно валидировать input c типом number по количеству символов, поэтому валидирую элемент через js -->
+              <input
+                class="form__input"
+                id="inn"
+                data-minlength="12"
+                data-maxlength="12"
+                type="number"
+                name="inn"
+                placeholder="Номер ИНН"
+                required
+              />
+            </p>
+            <p class="form__diviver">
+              <label class="form__label" for="contract-number"
+                >Номер контракта:</label
+              >
+              <input
+                class="form__input"
+                type="text"
+                name="contract-number"
+                id="contract-number"
+                required
+              />
+            </p>
+            <p class="form__diviver">
+              <label class="form__label" for="produtc-count"
+                >Количество единиц закупленного товара:</label
+              >
+              <input
+                class="form__input"
+                type="number"
+                name="product-count"
+                id="produtc-count"
+                required
+              />
+            </p>
+            <p class="form__diviver">
+              <label class="form__label" for="contract-amount"
+                >Сумма контракта:</label
+              >
+              <input
+                class="form__input"
+                type="number"
+                name="contract-amount"
+                id="contract-amount"
+                required
+              />
+            </p>
+            <button class="button" type="submit" disabled>Отправить</button>
+          </fieldset>
+        </form>
+      </section>
+    </main>
+    <template id="card-template-image">
+      <article class="slider__card">
+        <picture class="card__picture">
+          <source class="source-avif" />
+          <source class="source-webp" />
+          <img src="" alt="" />
+        </picture>
+        <div class="card__overlay">
+          <h3 class="card__title"></h3>
+        </div>
+      </article>
+    </template>
+
+    <template id="card-template-video">
+      <article class="slider__card">
+        <video src="" class="card__video" muted autoplay loop></video>
+        <div class="card__overlay">
+          <h3 class="card__title"></h3>
+        </div>
+      </article>
+    </template>
+
+    <template id="card-template-text">
+      <article class="slider__card text-card">
+        <h3 class="card__title"></h3>
+      </article>
+    </template>
+
+    <template id="form-result-template">
+      <div class="form-result">
+        <p></p>
+        <p></p>
+      </div>
+    </template>
+    <script src="./scripts/cards.js"></script>
+    <script src="./scripts/slider.js"></script>
+    <script defer src="./scripts/form.js"></script>
+  </body>
+</html>
