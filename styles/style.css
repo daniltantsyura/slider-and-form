@@ -149,7 +149,7 @@
   color: #fffa;
   padding: 20px;
   text-overflow: ellipsis;
-  transition: transform 500ms;
+  transition: transform 500ms, border-radius 500ms;
   overflow: auto;
 }
 
