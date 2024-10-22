@@ -185,12 +185,11 @@
   border-radius: 50px;
   background-color: #5f1534;
   block-size: 50px;
-  inline-size: 210px;
 }
 
 .slider__pagination form {
   display: flex;
-  justify-content: space-between;
+  gap: 15px;
   align-items: center;
   padding: 0 5px;
   block-size: 100%;

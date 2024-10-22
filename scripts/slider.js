@@ -3,25 +3,35 @@
 // Темплейт карточки
 
 const templateElementImage = document.querySelector(
-  "#card-template-image",
+  "#card-template-image"
 ).content;
 const templateElementVideo = document.querySelector(
-  "#card-template-video",
+  "#card-template-video"
 ).content;
 const templateElementText = document.querySelector(
-  "#card-template-text",
+  "#card-template-text"
 ).content;
+
+// Темплейт кнопок пагинации
+
+const templatePaginationButton = document.querySelector(
+    '#pagination-button-template'
+).content;
+
+// Массив для записи элементов кнопок пагинации
+
+const paginationButtons = createPaginationButtons();
 
 // DOM узлы
 
 const cardContainer = document.querySelector(".card-container");
+const sliderPaginationForm = document.querySelector('.slider__pagination form');
 const sliderController = document.querySelector(".slider__controller");
 
 // Кнопки переключения
 
 const nextButton = document.querySelector(".slider_button-next");
 const prevButton = document.querySelector(".slider_button-prev");
-const paginationButtons = document.querySelectorAll(".pagination__button");
 
 // Элементы для изменения времени интервала
 
@@ -29,14 +39,15 @@ const inputRange = sliderController.querySelector(".controller__range");
 const rangeDisplay = sliderController.querySelector(".controller__range-value");
 const controllerButton = sliderController.querySelector(".controller__button");
 
-// Вызов функции воспроизведения слайдера и запись ссылки на интервал в переменную
-
-let playInterval = playSlider(10000);
-
 // Индекс текущей и предыдущей карточки
 
 let currentCard = 0;
 let prevCard;
+
+// Вызов функции воспроизведения слайдера и запись ссылки на интервал в переменную
+
+let playInterval = playSlider(10000);
+
 
 // Объявление переменной для последующей записи таймаута удаления карточки
 
@@ -46,9 +57,14 @@ let delTimeout = null;
 
 let animationPlays = false;
 
-// Вызов функции добавления карточки
+// Вызов функций добавления карточки и кнопок пагинации
 
 appendCard();
+appendPaginationButtons();
+
+// Вызов функции установки пагинации
+
+setPagination();
 
 // Добавление слушателя событий для кнопок
 
@@ -60,11 +76,8 @@ prevButton.addEventListener("click", function () {
   switchByButton("prev");
 });
 
-paginationButtons[currentCard].checked = true;
-
-Array.from(paginationButtons).forEach((button, i) => {
-  console.log(button);
-  button.addEventListener("click", () => {
+Array.from(paginationButtons).forEach((buttonObj, i) => {
+  buttonObj.button.addEventListener("click", () => {
     if (currentCard != i) {
       switchByButton("pagination", i);
     }
@@ -193,20 +206,20 @@ function appendCard() {
 function playAnimation() {
   cardContainer.style.animation = "prevCard 500ms 2 alternate";
 
-  paginationButtons.forEach((button) => {
-    button.disabled = true;
+  paginationButtons.forEach((buttonObj) => {
+    buttonObj.button.disabled = true;
   });
 
+  animationPlays = true;
   clearAnimation(1000);
 }
 
 // Функция отключения анимации
 
 function clearAnimation(time) {
-  animationPlays = true;
   setTimeout(function () {
-    paginationButtons.forEach((button) => {
-      button.disabled = false;
+    paginationButtons.forEach((buttonObj) => {
+      buttonObj.button.disabled = false;
     });
     cardContainer.style.animation = "none";
     animationPlays = false;
@@ -221,6 +234,8 @@ function playSlider(time) {
   }, time);
   return interval;
 }
+
+// Функция переключения по кнопкам
 
 function switchByButton(direction, i = null) {
   if (!animationPlays) {
@@ -239,6 +254,7 @@ function switchCard(direction, i) {
   playAnimation();
   delTimeout = setTimeout(function () {
     switchIndex(direction, i);
+    setPagination();
     removeCard();
     appendCard();
   }, 500);
@@ -257,13 +273,45 @@ function switchIndex(direction, i) {
   currentCard = directObj[direction];
 
   if (direction !== "pagination") {
-    paginationButtons[currentCard].checked = true;
+    paginationButtons[currentCard].button.checked = true;
     if (prevCard !== null) {
-      paginationButtons[prevCard].removeAttribute("checked");
+      paginationButtons[prevCard].button.removeAttribute("checked");
     }
   }
 }
 
+// Функция получения значения, выбранного в рендже
+
 function getRangeValue() {
   return inputRange.value;
+}
+
+// Функция создания кнопок пагинации
+
+function createPaginationButtons () {
+    const buttonsArr = [];
+
+    initialCards.forEach(() => {
+        const label = templatePaginationButton.querySelector('.pagination__label').cloneNode(true);
+        buttonsArr.push({
+            label: label,
+            button: label.querySelector('.pagination__button')
+        });
+    });
+
+    return buttonsArr;
+}
+
+// Функция добавления кнопок пагинации
+
+function appendPaginationButtons () {
+    paginationButtons.forEach((buttonObj) => {
+        sliderPaginationForm.append(buttonObj.label);
+    });
+}
+
+// Функция установки пагинации
+
+function setPagination () {
+    paginationButtons[currentCard].button.checked = true;
 }

@@ -39,30 +39,7 @@
         </div>
         <div class="slider__pagination">
           <form action="#">
-            <label>
-              <input
-                class="pagination__button visually-hidden"
-                type="radio"
-                name="slider"
-              />
-              <span></span>
-            </label>
-            <label>
-              <input
-                class="pagination__button visually-hidden"
-                type="radio"
-                name="slider"
-              />
-              <span></span>
-            </label>
-            <label>
-              <input
-                class="pagination__button visually-hidden"
-                type="radio"
-                name="slider"
-              />
-              <span></span>
-            </label>
+
           </form>
         </div>
         <div class="slider__controller">
@@ -217,6 +194,17 @@
         <p></p>
         <p></p>
       </div>
+    </template>
+
+    <template id="pagination-button-template">
+        <label class="pagination__label">
+            <input
+              class="pagination__button visually-hidden"
+              type="radio"
+              name="slider"
+            />
+            <span></span>
+          </label>
     </template>
     <script src="./scripts/cards.js"></script>
     <script src="./scripts/slider.js"></script>
